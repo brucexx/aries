@@ -11,7 +11,7 @@ import org.springframework.beans.factory.xml.ParserContext;
 import org.springframework.util.StringUtils;
 import org.w3c.dom.Element;
 
-import com.brucexx.tagbean.ServiceTagBean;
+import com.brucexx.core.common.tagbean.ServiceModel;
 
 /**
  * 
@@ -22,7 +22,7 @@ public class ServiceParser extends AbstractSimpleBeanDefinitionParser {
 
 	@SuppressWarnings("rawtypes")
 	protected Class getBeanClass(Element element) {
-		return ServiceTagBean.class;
+		return ServiceModel.class;
 	}
 
 	private static int n = 0;

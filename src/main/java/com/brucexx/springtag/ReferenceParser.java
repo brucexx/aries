@@ -8,7 +8,7 @@ import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.xml.AbstractSimpleBeanDefinitionParser;
 import org.w3c.dom.Element;
 
-import com.brucexx.tagbean.ReferenceTagBean;
+import com.brucexx.core.common.tagbean.ReferenceModel;
 
 /**
  * 
@@ -20,7 +20,7 @@ public class ReferenceParser extends AbstractSimpleBeanDefinitionParser {
 
 	@SuppressWarnings("rawtypes")
 	protected Class getBeanClass(Element element) {
-		return ReferenceTagBean.class;
+		return ReferenceModel.class;
 	}
 
 	protected void postProcess(BeanDefinitionBuilder beanDefinition,

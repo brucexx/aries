@@ -1,6 +1,6 @@
-package com.brucexx.tagbean;
+package com.brucexx.core.common.tagbean;
 
-public class ServiceTagBean {
+public class ServiceModel {
 
 	private String service;
 	

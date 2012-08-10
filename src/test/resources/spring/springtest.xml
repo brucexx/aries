@@ -10,13 +10,13 @@
 	default-autowire="byName">
 
 
-	<aries:service ref="serviceId1"  protocol="ws" interface="haha" />
+	<aries:service ref="dhService" protocol="ws"
+		interface="com.brucexx.DhService" />
 
-	<aries:reference id="serviceId1" protocol="ws"  interface="haha" />
+	<aries:reference id="dhService" protocol="ws"
+		interface="com.brucexx.DhService" />
 
 
-	<bean id="test1" class="com.brucexx.Test">
-		<property name="name" value="hha" />
-	</bean>
+	<bean id="dhService" class="com.brucexx.DhServiceImpl" />
 
 </beans>
