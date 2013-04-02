@@ -4,6 +4,10 @@
  */
 package com.brucexx.springtag;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.xml.AbstractSimpleBeanDefinitionParser;
 import org.w3c.dom.Element;
@@ -18,20 +22,28 @@ import com.brucexx.core.common.tagbean.ReferenceModel;
  */
 public class ReferenceParser extends AbstractSimpleBeanDefinitionParser {
 
-	@SuppressWarnings("rawtypes")
-	protected Class getBeanClass(Element element) {
-		return ReferenceModel.class;
-	}
+    private static Logger                logger = Logger.getLogger("aries-config");
 
-	protected void postProcess(BeanDefinitionBuilder beanDefinition,
-			Element element) {
+    private static T Map<String, Class<T>> clzMap = new HashMap<String, Class<T>>();
 
-		String id = element.getAttribute("id");
-		String _interface = element.getAttribute("interface");
-		String protocol = element.getAttribute("protocol");
+    @SuppressWarnings("rawtypes")
+    protected Class getBeanClass(Element element) {
+        String _interface = element.getAttribute("interface");
+        try {
+            return Class.forName(_interface);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
-		System.out.println("id=" + id + ",interface=" + _interface
-				+ ",protocol=" + protocol);
-	}
+    }
+
+    protected void postProcess(BeanDefinitionBuilder beanDefinition, Element element) {
+
+        String id = element.getAttribute("id");
+        String _interface = element.getAttribute("interface");
+        String protocol = element.getAttribute("protocol");
+
+        System.out.println("id=" + id + ",interface=" + _interface + ",protocol=" + protocol);
+    }
 
 }

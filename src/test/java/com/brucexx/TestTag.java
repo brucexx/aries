@@ -19,13 +19,15 @@ public class TestTag {
      * @param args
      */
     public static void main(String[] args) {
-
-        System.out.println(TestTag.class.getClassLoader().getResource(""));
+        String[] springConfigs = { "classpath:spring/springtest-ref.xml",
+                "classpath:spring/springtest-service.xml" };
+        ApplicationContext ac = new ClassPathXmlApplicationContext(springConfigs);
+        DhService refer = (DhService) ac.getBean("myService");
+        System.out.println(refer.sk("reference --->"));
         
-        ApplicationContext ac = new ClassPathXmlApplicationContext(  
-        "classpath:spring/springtest.xml");  
-        Test test=(Test)ac.getBean("test1");
-        System.out.println(test.getName());
+        
+        DhService service = (DhService) ac.getBean("dhService");
+        System.out.println(service.sk("service --->"));
     }
 
 }
