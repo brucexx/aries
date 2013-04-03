@@ -1,4 +1,4 @@
-package com.brucexx.config;
+package com.brucexx.exception;
 
 public class AriesException extends RuntimeException {
 

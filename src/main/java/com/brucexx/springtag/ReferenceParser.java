@@ -4,15 +4,13 @@
  */
 package com.brucexx.springtag;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.xml.AbstractSimpleBeanDefinitionParser;
 import org.w3c.dom.Element;
 
 import com.brucexx.core.common.tagbean.ReferenceModel;
+import com.brucexx.core.common.tagbean.TagModelCache;
 
 /**
  * 
@@ -22,12 +20,9 @@ import com.brucexx.core.common.tagbean.ReferenceModel;
  */
 public class ReferenceParser extends AbstractSimpleBeanDefinitionParser {
 
-    private static Logger                logger = Logger.getLogger("aries-config");
+    private static Logger logger = Logger.getLogger("aries-config");
 
-    private static T Map<String, Class<T>> clzMap = new HashMap<String, Class<T>>();
-
-    @SuppressWarnings("rawtypes")
-    protected Class getBeanClass(Element element) {
+    protected Class<?> getBeanClass(Element element) {
         String _interface = element.getAttribute("interface");
         try {
             return Class.forName(_interface);
@@ -43,7 +38,20 @@ public class ReferenceParser extends AbstractSimpleBeanDefinitionParser {
         String _interface = element.getAttribute("interface");
         String protocol = element.getAttribute("protocol");
 
-        System.out.println("id=" + id + ",interface=" + _interface + ",protocol=" + protocol);
+        ReferenceModel rm = new ReferenceModel();
+        rm.setId(id);
+        rm.setInterface(_interface);
+        rm.setProtocol(protocol);
+
+        logger.info("register reference resource==>id[" + id + "],[" + _interface + "],protocol["
+                    + protocol + "]");
+        try {
+            Class.forName(_interface);
+        } catch (Exception e) {
+            logger.error("bean[" + id + "]class[" + _interface + "]²»´æÔÚ", e);
+            return;
+        }
+        TagModelCache.putRef(rm);
     }
 
 }

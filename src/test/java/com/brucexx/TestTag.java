@@ -23,9 +23,10 @@ public class TestTag {
                 "classpath:spring/springtest-service.xml" };
         ApplicationContext ac = new ClassPathXmlApplicationContext(springConfigs);
         DhService refer = (DhService) ac.getBean("myService");
-        System.out.println(refer.sk("reference --->"));
-        
-        
+        System.out.println(refer.sk("reference 1--->"));
+
+        System.out.println(refer.sk("reference2 --->"));
+
         DhService service = (DhService) ac.getBean("dhService");
         System.out.println(service.sk("service --->"));
     }
