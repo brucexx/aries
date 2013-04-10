@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <parent> 
+    <groupId>com.brucexx.aries</groupId>
+    <artifactId>aries-parent</artifactId>  
+    <version>1.0</version>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.brucexx.aries</groupId>
+  <artifactId>aries</artifactId>
+  <version>1.0</version>
+
+  <name>aries</name>
+  <description>aries</description>
+  <url>http://brucexx.iteye.com</url>
+
+  <packaging>pom</packaging>
+
+<modules>
+<module>common</module>
+<module>config</module>
+<module>framework</module>
+<module>test</module>
+</modules>
+</project>

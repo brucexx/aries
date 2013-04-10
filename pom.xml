@@ -1,19 +1,27 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
-	<groupId>com.brucexx</groupId>
-	<artifactId>aries</artifactId>
-	<version>0.1.0</version>
-	<packaging>jar</packaging>
-
+	
+	<groupId>com.brucexx.aries</groupId>
+	<artifactId>aries-parent</artifactId>
+	<version>1.0</version>
 	<name>aries</name>
-	<url>http://maven.apache.org</url>
+	<url>http://brucexx.iteye.com</url>
+	<description>brucexx soa framework aries</description>
 
-	<properties>
+	<packaging>pom</packaging>
+	
+	 <modules>
+		<module>aries</module>
+	</modules>
+
+	
+	<properties>		
+		<!--是否跳过单元测试的属性设置,默认为false,表示执行单元测试 --> 
+		<isSkipUnitTest>false</isSkipUnitTest>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-
+ 
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -44,5 +52,8 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.9</version>
 		</dependency>
+		
+ 
+				
 	</dependencies>
 </project>

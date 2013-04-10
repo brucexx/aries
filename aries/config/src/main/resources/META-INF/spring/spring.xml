@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="GBK"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aries="http://brucexx.iteye.com/schema/tags"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://brucexx.iteye.com/schema/tags  http://brucexx.iteye.com/schema/tags/aries.xsd
+         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+
+	default-autowire="byName">
+
+
+
+
+	<bean id="configDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:mysql://mypay1.devdb.alipay.net:3306/share_supergw?useUnicode=true&amp;characterEncoding=gbk
+			</value>
+		</property>
+		<property name="username">
+			<value>supergw</value>
+		</property>
+		<property name="password">
+			<value>ali88</value>
+		</property>
+	</bean>
+
+	<bean id="configDBManager" class="com.brucexx.assistx.common.db.jdbc.JdbcManager">
+		<property name="dbType">
+			<value>MYSQL</value>
+		</property>
+		<property name="dataSource">
+			<ref bean="configDataSource" />
+		</property>
+	</bean>
+
+	<!-- 注解式注入springbean -->
+	<context:annotation-config />
+
+	<context:component-scan base-package="com.brucexx.aries" />
+
+</beans>

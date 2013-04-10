@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<groupId>com.brucexx.aries</groupId>
+		<artifactId>aries</artifactId>
+		<version>1.0</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.brucexx.aries</groupId>
+	<artifactId>aries-config</artifactId>
+	<version>1.0</version>
+
+	<name>aries-config</name>
+	<description>aries-config</description>
+	<url>http://brucexx.iteye.com</url>
+
+	<packaging>jar</packaging>
+
+	<dependencies>
+		<!-- project depends -->
+		<dependency>
+			<groupId>com.brucexx.aries</groupId>
+			<artifactId>aries-common</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.mina</groupId>
+			<artifactId>mina-core</artifactId>
+			<version>2.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.9</version>
+		</dependency>
+		<!-- lib depends -->
+	</dependencies>
+
+</project>
