@@ -45,6 +45,9 @@ public class ConfigServer {
     /** 用于服务业务系统**/
     private static NioSocketAcceptor acceptor;
 
+    /** **/
+    private static ManagerClient      serverClient;
+
     /**
      * 
      */

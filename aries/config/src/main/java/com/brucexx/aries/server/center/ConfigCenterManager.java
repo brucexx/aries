@@ -16,17 +16,12 @@ import java.util.Set;
 public class ConfigCenterManager {
 
     /**configServer管理器端口， 由configServerManager监听,由configServer启动时向configServerManager注册信息 **/
-    private static final int   CONFIG_MANAGER_PORT = 13147;
+    private static final int CONFIG_MANAGER_PORT = 13147;
 
     /**注册进来的configServer的机器ip列表  **/
-    private Set<String>        configServerSet     = new HashSet<String>();
-
-    /**配置 **/
-    private Set<ManagerClient> managerClientMap    = new HashSet<ManagerClient>();
+    private Set<String>      configServerSet     = new HashSet<String>();
 
     public void addOrUpdateConfigServer(String configServerIp) {
-        
-       
         configServerSet.add(configServerIp);
     }
 

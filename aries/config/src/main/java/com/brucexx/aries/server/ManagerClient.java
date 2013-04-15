@@ -2,11 +2,13 @@
  * Alipay.com Inc.
  * Copyright (c) 2004-2013 All Rights Reserved.
  */
-package com.brucexx.aries.server.center;
+package com.brucexx.aries.server;
 
 import java.net.InetSocketAddress;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
@@ -27,21 +29,21 @@ import com.brucexx.aries.protocol.HeartBeatPackage;
 import com.brucexx.aries.protocol.MsgPackage;
 import com.brucexx.aries.protocol.NodeRegPackage;
 import com.brucexx.aries.protocol.RecvPackage;
-import com.brucexx.aries.server.ConfigServerEnum;
 import com.brucexx.aries.util.MsgUtil;
 import com.brucexx.aries.util.SystemUtil;
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 /**
- * 这里保持一个连接就好了
+ * 用于连接配置中心管理器的客户端
  * @author zhao.xiong
  * @version $Id: ConfigServerManagerClient.java, v 0.1 2013-4-12 下午1:24:41 zhao.xiong Exp $
  */
 public class ManagerClient {
 
+    private static Logger                 logger              = Logger.getLogger("aries-config");
+
     /**configServer管理器端口， 由configServerManager监听,由configServer启动时向configServerManager注册信息 **/
     private static final int              CONFIG_MANAGER_PORT = 13147;
-
-    private static Logger                 logger              = Logger.getLogger("aries-config");
 
     /** configserver配置属性**/
     private Map<ConfigServerEnum, String> map                 = new HashMap<ConfigServerEnum, String>();
@@ -62,7 +64,15 @@ public class ManagerClient {
     private boolean                       init                = false;
 
     /**管理器中心ip **/
-    private String                        managerIp;
+    private Set<String>                   managerIpSet        = new HashSet<String>();
+
+    public ManagerClient(String managerIp) {
+        managerIpSet.add(managerIp);
+    }
+
+    public ManagerClient(Set<String> managerIpSet) {
+        this.managerIpSet.addAll(managerIpSet);
+    }
 
     public void startHeartBeat() {
         if (!init) {
@@ -86,6 +96,10 @@ public class ManagerClient {
             init = true;
         }
     }
+
+    /**
+     * 注册配置中心
+     */
 
     public void regConfigCenter() {
         RecvPackage recv = sendAndRecv();
@@ -167,7 +181,6 @@ public class ManagerClient {
      */
     public void connectManager() {
         try {
-
             if (StringUtils.isNotEmpty(map.get(ConfigServerEnum.MANAGER_HOST))) {
                 managerIp = map.get(ConfigServerEnum.MANAGER_HOST);
             }
