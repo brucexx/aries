@@ -18,12 +18,22 @@ public class HeartBeatPackage implements Serializable {
 
     private String            str              = "aries";
 
+    private String            remoteIp;
+
     public String getStr() {
         return str;
     }
 
     public void setStr(String s) {
         this.str = s;
+    }
+
+    public String getRemoteIp() {
+        return remoteIp;
+    }
+
+    public void setRemoteIp(String remoteIp) {
+        this.remoteIp = remoteIp;
     }
 
 }

@@ -16,9 +16,10 @@ import com.brucexx.aries.db.JdbcManager;
 import com.brucexx.aries.exception.Assert;
 import com.brucexx.aries.exception.ResultCode;
 import com.brucexx.aries.protocol.AriesProtocol;
+import com.brucexx.aries.util.SystemUtil;
 
 /**
- * 
+ * 配置中心数据仓库
  * @author zhao.xiong
  * @version $Id: ConfigDataRepository.java, v 0.1 2013-4-9 下午5:20:11 zhao.xiong Exp $
  */
@@ -44,22 +45,27 @@ public class ConfigDataRepository {
         AriesProtocol protocol = AriesProtocol.getEnumByCode(serviceInfo.getProtocol());
         Assert.notNull(protocol, ResultCode.ILLEGAL_PROTOCOL);
 
-        String selectCountSql = "select count(*) as _count  from host_info where host_ip=?";
+        String selectCountSql = "select count(*) as _count  from host_info where host_ip=? and resource_id=? and protocol=? and group_id=?";
 
-        Map<String, String> map = configDBManager.preExecuteForMap(selectCountSql, selectCountSql);
+        Map<String, String> map = configDBManager.preExecuteForMap(selectCountSql,
+            serviceInfo.getHostIp(), serviceInfo.getResourceId(), serviceInfo.getProtocol(),
+            serviceInfo.getGroupId());
 
         int c = NumberUtils.toInt(map.get("_count"), 0);
         if (c == 0) {
-            configDBManager.preExecuteSql(
-                "insert into host_info(resource_id,host_ip,group_id,"
-                        + "protocol,gmt_create,gmt_modified) values(?,?,?,?,sysdate,sysdate)",
-                serviceInfo.getResourceId(), serviceInfo.getHostIp(), serviceInfo.getGroupId(),
-                serviceInfo.getProtocol());
+            configDBManager
+                .preExecuteSql(
+                    "insert into host_info(resource_id,host_ip,group_id,"
+                            + "protocol,config_server_ip,is_alive,gmt_create,gmt_modified) values(?,?,?,?,?,?,sysdate,sysdate)",
+                    serviceInfo.getResourceId(), serviceInfo.getHostIp(), serviceInfo.getGroupId(),
+                    serviceInfo.getProtocol(), SystemUtil.getHostInfo().getAddress(), true);
         } else {
             //这里可以看出哪些系统重启过，有最后修改时间
-            configDBManager.preExecuteSql(
-                "update host_info set resource_id=?,group_id=?,protocol=?,gmt_modified=sysdate",
-                serviceInfo.getResourceId(), serviceInfo.getGroupId(), serviceInfo.getProtocol());
+            configDBManager
+                .preExecuteSql(
+                    "update host_info set  gmt_modified=sysdate where resource_id=? and group_id=? and protocol=? and host_ip=?",
+                    serviceInfo.getResourceId(), serviceInfo.getGroupId(),
+                    serviceInfo.getProtocol(), serviceInfo.getHostIp());
         }
 
     }
@@ -89,6 +95,8 @@ public class ConfigDataRepository {
         }
         return serviceList;
     }
+    
+    
 
     public void setConfigDBManager(JdbcManager configDBManager) {
         this.configDBManager = configDBManager;

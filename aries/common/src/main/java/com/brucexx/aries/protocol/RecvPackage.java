@@ -1,6 +1,5 @@
 package com.brucexx.aries.protocol;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,10 +8,13 @@ import java.util.List;
  * @author zhao.xiong
  * @version $Id: RecvPackage.java, v 0.1 2013-4-9 下午3:48:17 zhao.xiong Exp $
  */
-public class RecvPackage implements Serializable {
+public class RecvPackage implements MsgPackage {
 
     /**  */
     private static final long serialVersionUID = 7466246480324894134L;
+
+    /** 用于一次消息的唯一标识 uuid+10位随机数 **/
+    private String            msgId;
 
     /**是否Service/Reference **/
     private boolean           isService        = false;
@@ -34,6 +36,14 @@ public class RecvPackage implements Serializable {
 
     /**configServer异常信息  **/
     private Exception         serverException;
+
+    public String getMsgId() {
+        return msgId;
+    }
+
+    public void setMsgId(String msgId) {
+        this.msgId = msgId;
+    }
 
     public boolean isService() {
         return isService;
