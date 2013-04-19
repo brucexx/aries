@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<!-- Log4j配置文件。 -->
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<!--===================================================================== -->
+	<!-- Appenders -->
+	<!--===================================================================== -->
+
+	<!-- ===== [公共Appender] ===== -->
+
+	<!-- [公共Appender] 默认 -->
+	<appender name="DEFAULT-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="${app_dir}/common-default.log" />
+		<param name="append" value="true" />
+		<param name="encoding" value="GBK" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss},%m%n" />
+		</layout>
+	</appender>
+
+
+	<!-- [公共Appender] 汇总错误 -->
+	<appender name="ERROR-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="${app_dir}/common-error.log" />
+		<param name="append" value="true" />
+		<param name="encoding" value="GBK" />
+		<param name="threshold" value="error" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss},%m%n" />
+		</layout>
+	</appender>
+
+	<!-- [公共Appender] 控制台STDOUT -->
+	<appender name="STDOUT-APPENDER" class="org.apache.log4j.ConsoleAppender">
+		<param name="encoding" value="GBK" />
+		<param name="target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss},%m%n" />
+		</layout>
+	</appender>
+
+	<!-- [公共Appender] 控制台STDERR -->
+	<appender name="STDERR-APPENDER" class="org.apache.log4j.ConsoleAppender">
+		<param name="encoding" value="GBK" />
+		<param name="target" value="System.err" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p %c{2} - %m%n" />
+		</layout>
+	</appender>
+
+
+	<appender name="TRANSFER-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="${app_dir}/aries-common-transfer.log" />
+		<param name="append" value="true" />
+		<param name="encoding" value="GBK" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss},%m%n" />
+		</layout>
+	</appender>
+
+	<appender name="COMMON-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="${app_dir}/aries-common-default.log" />
+		<param name="append" value="true" />
+		<param name="encoding" value="GBK" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss},%m%n" />
+		</layout>
+	</appender>
+
+
+	<logger name="aries-common" additivity="false">
+		<level value="${app_loggingLevel}" />
+		<appender-ref ref="COMMON-APPENDER" />
+		<appender-ref ref="ERROR-APPENDER" />
+	</logger>
+
+	<logger name="common-transfer" additivity="false">
+		<level value="${app_loggingLevel}" />
+		<appender-ref ref="TRANSFER-APPENDER" />
+		<appender-ref ref="ERROR-APPENDER" />
+	</logger>
+
+	<!-- [公共Logger] 控制台STDOUT - STDOUT -->
+	<logger name="STDOUT" additivity="false">
+		<level value="${app_loggingLevel}" />
+		<appender-ref ref="STDOUT-APPENDER" />
+	</logger>
+
+	<!-- [公共Logger] 控制台STDERR - STDERR -->
+	<logger name="STDERR" additivity="false">
+		<level value="${app_loggingLevel}" />
+		<appender-ref ref="STDERR-APPENDER" />
+	</logger>
+
+
+	<root>
+		<level value="${app_loggingLevel}" />
+		<appender-ref ref="DEFAULT-APPENDER" />
+		<appender-ref ref="ERROR-APPENDER" />
+	</root>
+
+</log4j:configuration>

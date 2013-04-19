@@ -19,8 +19,8 @@ public class TestTag {
      * @param args
      */
     public static void main(String[] args) {
-        String[] springConfigs = { "classpath:spring/springtest-ref.xml",
-                "classpath:spring/springtest-service.xml" };
+        String[] springConfigs = { "classpath:META-INF/spring/springtest-ref.xml",
+                "classpath:META-INF/spring/springtest-service.xml" };
         ApplicationContext ac = new ClassPathXmlApplicationContext(springConfigs);
         DhService refer = (DhService) ac.getBean("myService");
         System.out.println(refer.sk("reference 1--->"));

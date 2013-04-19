@@ -4,13 +4,14 @@
  */
 package com.brucexx.aries;
 
+
 /**
  * 
  * @author zhao.xiong
  * @version $Id: Test.java, v 0.1 2012-5-24 обнГ04:45:35 zhao.xiong Exp $
  */
 public class Test {
-    
+
     private String name;
 
     /**

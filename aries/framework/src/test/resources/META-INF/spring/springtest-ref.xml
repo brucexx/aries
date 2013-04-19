@@ -10,8 +10,13 @@
 	default-autowire="byName">
 
 
-	<aries:reference id="myService" protocol="ws"
-		interface="com.brucexx.DhService" />
+	<aries:reference id="myService" protocol="WS"
+		interface="com.brucexx.aries.DhService">
+		<props>
+			<prop key="xx">haha</prop>
+			<prop key="xx1">mi</prop>
+		</props>
+	</aries:reference>
 
 
 

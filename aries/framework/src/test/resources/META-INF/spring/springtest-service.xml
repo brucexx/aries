@@ -13,8 +13,8 @@
 
 	<bean id="dhService" class="com.brucexx.DhServiceImpl" />
 
-	<aries:service ref="dhService" protocol="ws"
-		interface="com.brucexx.DhService" />
+	<aries:service ref="dhService" protocol="WS"
+		interface="com.brucexx.aries.DhService" />
 
 
 </beans>

@@ -4,6 +4,8 @@
  */
 package com.brucexx.aries.protocol;
 
+import com.brucexx.aries.communication.pkg.common.MsgPackage;
+
 /**
  * 配置服务器的信息状态
  * @author zhao.xiong

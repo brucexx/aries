@@ -8,47 +8,63 @@
 
 	<!-- 客户端 -->
 	<xsd:element name="reference">
-		<xsd:annotation>
-			<xsd:documentation>client refer to service id</xsd:documentation>
-		</xsd:annotation>
 		<xsd:complexType>
 			<xsd:complexContent>
-				<xsd:extension base="beans:identifiedType">
-					<xsd:attribute name="interface" type="xsd:string"
-						use="required" />
-					<xsd:attribute name="protocol" type="protocolType"
-						use="required" />
+				<xsd:extension base="referenceType">
+					<xsd:sequence>
+						<xsd:element ref="beans:props" minOccurs="0" />
+					</xsd:sequence>
 				</xsd:extension>
 			</xsd:complexContent>
 		</xsd:complexType>
-
 	</xsd:element>
 
 	<!-- 服务端 -->
 	<xsd:element name="service">
-		<xsd:annotation>
-			<xsd:documentation>service to publish</xsd:documentation>
-		</xsd:annotation>
 		<xsd:complexType>
 			<xsd:complexContent>
-				<xsd:extension base="beans:identifiedType">
-					<xsd:attribute name="ref" type="xsd:string" use="required" />
-					<xsd:attribute name="interface" type="xsd:string"
-						use="required" />
-					<xsd:attribute name="protocol" type="xsd:string" use="required" />
+				<xsd:extension base="serviceType">
+					<xsd:sequence>
+						<xsd:element ref="beans:props" minOccurs="0" />
+					</xsd:sequence>
 				</xsd:extension>
 			</xsd:complexContent>
 		</xsd:complexType>
 	</xsd:element>
 
+	<xsd:complexType name="referenceType">
+		<xsd:complexContent>
+			<xsd:extension base="beans:identifiedType">
+				<xsd:attribute name="interface" type="xsd:string" use="required" />
+				<xsd:attribute name="groupId" type="xsd:string" use="optional" />
+				<xsd:attribute name="protocol" type="protocolType"
+					use="required" />
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="serviceType">
+		<xsd:complexContent>
+			<xsd:extension base="beans:identifiedType">
+				<xsd:attribute name="ref" type="xsd:string" use="required" />
+				<xsd:attribute name="interface" type="xsd:string" use="required" />
+				<xsd:attribute name="groupId" type="xsd:string" use="optional" />
+				<xsd:attribute name="protocol" type="protocolType"
+					use="required" />
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
 
 	<xsd:simpleType name="protocolType">
 		<xsd:restriction base="xsd:string">
 			<xsd:enumeration value="WS" />
-			<xsd:enumeration value="TCP" />
+			<xsd:enumeration value="JVM" />
 			<xsd:enumeration value="MQ" />
 			<xsd:enumeration value="HESSIAN" />
 		</xsd:restriction>
 	</xsd:simpleType>
+
+
+
 
 </xsd:schema>

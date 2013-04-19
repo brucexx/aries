@@ -9,13 +9,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.NumberUtils;
 import org.apache.log4j.Logger;
 
+import com.brucexx.aries.communication.enums.AriesProtocol;
 import com.brucexx.aries.db.JdbcManager;
 import com.brucexx.aries.exception.Assert;
 import com.brucexx.aries.exception.ResultCode;
-import com.brucexx.aries.protocol.AriesProtocol;
 import com.brucexx.aries.util.SystemUtil;
 
 /**
@@ -34,7 +33,7 @@ public class ConfigDataRepository {
      * 
      * @param serviceInfo
      */
-    @SuppressWarnings("unchecked")
+
     public void regService(ServiceInfo serviceInfo) {
 
         Assert.notNull(serviceInfo);
@@ -44,29 +43,29 @@ public class ConfigDataRepository {
 
         AriesProtocol protocol = AriesProtocol.getEnumByCode(serviceInfo.getProtocol());
         Assert.notNull(protocol, ResultCode.ILLEGAL_PROTOCOL);
-
-        String selectCountSql = "select count(*) as _count  from host_info where host_ip=? and resource_id=? and protocol=? and group_id=?";
-
-        Map<String, String> map = configDBManager.preExecuteForMap(selectCountSql,
-            serviceInfo.getHostIp(), serviceInfo.getResourceId(), serviceInfo.getProtocol(),
-            serviceInfo.getGroupId());
-
-        int c = NumberUtils.toInt(map.get("_count"), 0);
-        if (c == 0) {
-            configDBManager
-                .preExecuteSql(
-                    "insert into host_info(resource_id,host_ip,group_id,"
-                            + "protocol,config_server_ip,is_alive,gmt_create,gmt_modified) values(?,?,?,?,?,?,sysdate,sysdate)",
-                    serviceInfo.getResourceId(), serviceInfo.getHostIp(), serviceInfo.getGroupId(),
-                    serviceInfo.getProtocol(), SystemUtil.getHostInfo().getAddress(), true);
-        } else {
-            //这里可以看出哪些系统重启过，有最后修改时间
-            configDBManager
-                .preExecuteSql(
-                    "update host_info set  gmt_modified=sysdate where resource_id=? and group_id=? and protocol=? and host_ip=?",
-                    serviceInfo.getResourceId(), serviceInfo.getGroupId(),
-                    serviceInfo.getProtocol(), serviceInfo.getHostIp());
-        }
+        //
+        //        String selectCountSql = "select count(*) as _count  from host_info where host_ip=? and resource_id=? and protocol=? and group_id=?";
+        //
+        //        Map<String, String> map = configDBManager.preExecuteForMap(selectCountSql,
+        //            serviceInfo.getHostIp(), serviceInfo.getResourceId(), serviceInfo.getProtocol(),
+        //            serviceInfo.getGroupId());
+        //
+        //        int c = NumberUtils.toInt(map.get("_count"), 0);
+        //        if (c == 0) {
+        configDBManager
+            .preExecuteSql(
+                "insert into host_info(resource_id,host_ip,group_id,"
+                        + "protocol,config_server_ip,is_alive,gmt_create,gmt_modified) values(?,?,?,?,?,?,sysdate,sysdate)",
+                serviceInfo.getResourceId(), serviceInfo.getHostIp(), serviceInfo.getGroupId(),
+                serviceInfo.getProtocol(), SystemUtil.getHostInfo().getAddress(), true);
+        //        } else {
+        //            //这里可以看出哪些系统重启过，有最后修改时间
+        //            configDBManager
+        //                .preExecuteSql(
+        //                    "update host_info set  gmt_modified=sysdate where resource_id=? and group_id=? and protocol=? and host_ip=?",
+        //                    serviceInfo.getResourceId(), serviceInfo.getGroupId(),
+        //                    serviceInfo.getProtocol(), serviceInfo.getHostIp());
+        //        }
 
     }
 
@@ -76,9 +75,15 @@ public class ConfigDataRepository {
      * @param groupId
      * @return
      */
-    public List<ServiceInfo> getServiceNodeList(String groupId) {
+    public List<ServiceInfo> getServiceNodeList(String groupId,String resourceId,String protocol) {
         List<ServiceInfo> serviceList = new ArrayList<ServiceInfo>();
-        String selectSql = "select *  from host_info where groupId=?";
+        String selectSql ="";
+        if(StringUtils.isEmpty(groupId)){
+            selectSql = "select *  from host_info where  resource_id=? and protocol=?";
+        }else{
+            selectSql= "select *  from host_info where group_id=? and resource_id=? and protocol=?";
+        }
+       
         List<Map<String, Object>> list = configDBManager.preExecuteSqlForList(selectSql, groupId);
         for (Map<String, Object> map : list) {
             try {
@@ -95,8 +100,6 @@ public class ConfigDataRepository {
         }
         return serviceList;
     }
-    
-    
 
     public void setConfigDBManager(JdbcManager configDBManager) {
         this.configDBManager = configDBManager;
