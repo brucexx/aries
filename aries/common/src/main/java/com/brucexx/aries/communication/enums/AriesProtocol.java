@@ -2,7 +2,7 @@
  * Alipay.com Inc.
  * Copyright (c) 2004-2012 All Rights Reserved.
  */
-package com.brucexx.aries.protocol;
+package com.brucexx.aries.communication.enums;
 
 /**
  * 

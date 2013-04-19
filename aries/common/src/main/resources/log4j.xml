@@ -49,8 +49,8 @@
 	</appender>
 
 
-	<appender name="CONFIG-DAL-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="file" value="${app_dir}/aries-config-dal.log" />
+	<appender name="TRANSFER-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="${app_dir}/aries-common-transfer.log" />
 		<param name="append" value="true" />
 		<param name="encoding" value="GBK" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -58,8 +58,8 @@
 		</layout>
 	</appender>
 
-	<appender name="CONFIG-SERVER-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="file" value="${app_dir}/aries-config-server.log" />
+	<appender name="COMMON-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="${app_dir}/aries-common-default.log" />
 		<param name="append" value="true" />
 		<param name="encoding" value="GBK" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -67,25 +67,16 @@
 		</layout>
 	</appender>
 
-	<!-- 配置服务器数据 -->
-	<logger name="config-dal" additivity="false">
+
+	<logger name="aries-common" additivity="false">
 		<level value="${app_loggingLevel}" />
-		<appender-ref ref="CONFIG-DAL-APPENDER" />
+		<appender-ref ref="COMMON-APPENDER" />
 		<appender-ref ref="ERROR-APPENDER" />
 	</logger>
 
-	<!-- 配置服务器日志 -->
-	<logger name="config-server" additivity="false">
+	<logger name="common-transfer" additivity="false">
 		<level value="${app_loggingLevel}" />
-		<appender-ref ref="CONFIG-SERVER-APPENDER" />
-		<appender-ref ref="ERROR-APPENDER" />
-	</logger>
-
-
-	<!-- 配置中心日志 -->
-	<logger name="config-center" additivity="false">
-		<level value="${app_loggingLevel}" />
-		<appender-ref ref="CONFIG-CENTER-APPENDER" />
+		<appender-ref ref="TRANSFER-APPENDER" />
 		<appender-ref ref="ERROR-APPENDER" />
 	</logger>
 

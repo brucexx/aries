@@ -84,6 +84,7 @@ public final class WsServiceManager implements AriesServiceManager, ApplicationL
 
                     logger.info(serviceModel + "webservice启动成功！");
                     //TODO 向configService注册节点信息
+                    
 
                 } else {
                     logger.warn("serviceId:" + serviceId + "没有注册对应组件");

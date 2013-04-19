@@ -12,10 +12,10 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.log4j.Logger;
 
+import com.brucexx.aries.communication.enums.AriesProtocol;
 import com.brucexx.aries.db.JdbcManager;
 import com.brucexx.aries.exception.Assert;
 import com.brucexx.aries.exception.ResultCode;
-import com.brucexx.aries.protocol.AriesProtocol;
 import com.brucexx.aries.util.SystemUtil;
 
 /**

@@ -6,38 +6,50 @@ package com.brucexx.aries.db;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
+
+import javax.sql.DataSource;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.springframework.context.ApplicationEvent;
-import org.springframework.context.ApplicationListener;
-import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Component;
 
 /**
- *
+ * 配置管理器主数据源
  * @author zhao.xiong
  */
-public class JdbcManager extends JdbcDaoSupport implements ApplicationListener {
+@Component("configDBManager")
+public class JdbcManager extends JdbcDaoSupport implements BeanFactoryAware {
 
-    private static final Logger logger = Logger.getLogger(JdbcManager.class);
-    private Timer               timer  = new Timer(true);
+    private static final Logger logger = Logger.getLogger("config-dal");
     //DB类型
     private DBType              dbType;
 
+    private BeanFactory         beanFactory;
+
+    /**
+     * 
+     * @see org.springframework.jdbc.core.support.JdbcDaoSupport#createJdbcTemplate(javax.sql.DataSource)
+     */
+    @Override
+    protected JdbcTemplate createJdbcTemplate(DataSource dataSource) {
+        DataSourceManager dsm = (DataSourceManager) beanFactory.getBean("dataSourceManager");
+        return new JdbcTemplate(dsm.getMainDS());
+    }
+
     @SuppressWarnings("unchecked")
     public List<Map<String, Object>> executeSqlForList(String sql) {
-        // logger.info("exesql==>"+sql);
+
         return this.getJdbcTemplate().queryForList(sql);
     }
 
     @SuppressWarnings("unchecked")
     public List<Map<String, Object>> preExecuteSqlForList(String sql, Object... args) {
-        // logger.info("exesql==>"+sql);
+
         return this.getJdbcTemplate().queryForList(sql, args);
     }
 
@@ -173,18 +185,12 @@ public class JdbcManager extends JdbcDaoSupport implements ApplicationListener {
         this.dbType = dbType;
     }
 
+    /** 
+     * @see org.springframework.beans.factory.BeanFactoryAware#setBeanFactory(org.springframework.beans.factory.BeanFactory)
+     */
     @Override
-    public void onApplicationEvent(ApplicationEvent event) {
-        if (event instanceof ContextRefreshedEvent) {
-            if (dbType == DBType.ORACLE) {
-                timer.schedule(new TimerTask() {
-
-                    @Override
-                    public void run() {
-                        executeSqlForList("select * from dual");
-                    }
-                }, 2000, 60000);
-            }
-        }
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        this.beanFactory = beanFactory;
     }
+
 }

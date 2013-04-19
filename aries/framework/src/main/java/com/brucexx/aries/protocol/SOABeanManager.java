@@ -8,6 +8,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 
+import com.brucexx.aries.communication.enums.AriesProtocol;
 import com.brucexx.aries.tag.ReferenceModel;
 import com.brucexx.aries.tag.ServiceModel;
 

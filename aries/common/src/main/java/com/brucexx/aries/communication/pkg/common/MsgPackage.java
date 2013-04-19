@@ -2,7 +2,7 @@
  * Alipay.com Inc.
  * Copyright (c) 2004-2013 All Rights Reserved.
  */
-package com.brucexx.aries.protocol;
+package com.brucexx.aries.communication.pkg.common;
 
 import java.io.Serializable;
 

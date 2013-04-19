@@ -1,5 +1,6 @@
-package com.brucexx.aries.protocol;
+package com.brucexx.aries.communication.pkg.soa;
 
+import com.brucexx.aries.communication.pkg.common.SendPackage;
 
 /**
  * aries framework 客户端 发送包内容,同时也是配置服务器接收内容
@@ -7,13 +8,10 @@ package com.brucexx.aries.protocol;
  * @author zhao.xiong
  * @version $Id: SendPackage.java, v 0.1 2013-4-9 下午3:46:09 zhao.xiong Exp $
  */
-public class SendPackage implements MsgPackage {
+public class ProtocolSendPackage extends SendPackage {
 
     /**  */
     private static final long serialVersionUID = 7829638192747834144L;
-
-    /** 用于一次消息的唯一标识 uuid+10位随机数 **/
-    private String            msgId;
 
     /**是否Service/Reference **/
     private boolean           isService        = false;
@@ -26,14 +24,6 @@ public class SendPackage implements MsgPackage {
 
     /** service分组id,也可以自己定义,让机器在一个定义的组里,ws默认为系统维度从System.getProperties("appName")获取,mq用topic来分隔 **/
     private String            groupId;
-
-    public String getMsgId() {
-        return msgId;
-    }
-
-    public void setMsgId(String msgId) {
-        this.msgId = msgId;
-    }
 
     public boolean isService() {
         return isService;

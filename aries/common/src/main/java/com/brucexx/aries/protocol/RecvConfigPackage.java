@@ -2,13 +2,15 @@ package com.brucexx.aries.protocol;
 
 import java.util.List;
 
+import com.brucexx.aries.communication.pkg.common.MsgPackage;
+
 /**
  * aries framework 客户端接收包内容,同时也是配置服务器响应内容
  * 
  * @author zhao.xiong
  * @version $Id: RecvPackage.java, v 0.1 2013-4-9 下午3:48:17 zhao.xiong Exp $
  */
-public class RecvPackage implements MsgPackage {
+public class RecvConfigPackage implements MsgPackage {
 
     /**  */
     private static final long serialVersionUID = 7466246480324894134L;

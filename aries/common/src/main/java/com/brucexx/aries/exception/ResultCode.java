@@ -21,8 +21,10 @@ public enum ResultCode {
 
     /**不允许为空 **/
     NOT_EMPTY("AR0010001", "不允许为空"),
-    
-    ILLEGAL_PROTOCOL("AR0010002","不支持的soa协议类型"),
+
+    ILLEGAL_PROTOCOL("AR0010002", "不支持的soa协议类型"),
+
+    NO_HOST_ADDR("AR0010003", "没有主机地址"),
 
     ;
 

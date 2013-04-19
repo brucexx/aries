@@ -11,15 +11,14 @@
 
 
 
-
+  <!--  
 	<bean id="configDataSource" class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close">
+		destroy-method="close" >
 		<property name="driverClassName">
 			<value>com.mysql.jdbc.Driver</value>
 		</property>
 		<property name="url">
-			<value>jdbc:mysql://mypay1.devdb.alipay.net:3306/share_supergw?useUnicode=true&amp;characterEncoding=gbk
-			</value>
+ 			<value>jdbc:mysql://mypay1.devdb.alipay.net:3306/share_supergw?useUnicode=true&amp;characterEncoding=gbk</value>
 		</property>
 		<property name="username">
 			<value>supergw</value>
@@ -28,7 +27,7 @@
 			<value>ali88</value>
 		</property>
 	</bean>
-
+-->
 	<bean id="configDBManager" class="com.brucexx.assistx.common.db.jdbc.JdbcManager">
 		<property name="dbType">
 			<value>MYSQL</value>
