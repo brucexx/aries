@@ -27,8 +27,7 @@ public class WsRefManager extends AbstractReferenceManager {
     @Override
     protected void setProcessor(SOAInfoAdaptor pbc) {
         logger.info("引用webservice服务==>" + pbc.getTagModel());
-        
-        
+ 
         
         ReferenceModel model = (ReferenceModel) pbc.getTagModel();
         try {
